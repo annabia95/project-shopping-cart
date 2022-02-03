@@ -32,9 +32,10 @@ function createProductItemElement({ sku, name, image }) {
   return item.querySelector('span.item__sku').innerText;
 } */
 
-/* function cartItemClickListener(event) {
-  // coloque seu código aqui
-} */
+function cartItemClickListener(event) {
+  const selectProductCart = document.querySelector('.cart__items');
+  selectProductCart.removeChild(event.target);
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
