@@ -1,7 +1,5 @@
-/* const { fetchItem } = require("./helpers/fetchItem"); */
+const getCartItem = document.querySelector('ol');
 
-/* const { fetchProducts } = require('./helpers/fetchProducts');
- */
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -35,6 +33,7 @@ function createProductItemElement({ sku, name, image }) {
 function cartItemClickListener(event) {
   const selectProductCart = document.querySelector('.cart__items');
   selectProductCart.removeChild(event.target);
+  saveCartItems(getCartItem.innerHTML);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -43,6 +42,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+function saveTheProducts() {
+  getCartItem.innerHTML = getSavedCartItems();
 }
 
 window.onload = () => { };
@@ -71,6 +74,7 @@ async function createCartProducts(ItemID) {
     };
     const callCreateCartProduct = createCartItemElement(itemObjectCart);
     selectElementOl.appendChild(callCreateCartProduct);
+    saveCartItems(getCartItem.innerHTML);
 }
  /* Após implementar a minha API de ItemID  e criar os componentes HTML do respectivo item, crio um evento para implementar as características do produto no carrinho de compras */
 const bttnAddCart = () => {
@@ -82,9 +86,9 @@ const bttnAddCart = () => {
     });
   });
 };
-bttnAddCart();
 
 window.onload = () => {
   createFetchProducts('computador')
-  .then(() => bttnAddCart());
+  .then(() => bttnAddCart())
+  .then(() => saveTheProducts());
 };
