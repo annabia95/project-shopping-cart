@@ -1,4 +1,4 @@
-const getCartItem = document.querySelector('ol');
+const getCartItem = document.querySelector('.cart__items');
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -31,8 +31,7 @@ function createProductItemElement({ sku, name, image }) {
 } */
 
 function cartItemClickListener(event) {
-  const selectProductCart = document.querySelector('.cart__items');
-  selectProductCart.removeChild(event.target);
+  event.target.remove();
   saveCartItems(getCartItem.innerHTML);
 }
 
@@ -43,12 +42,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
-function saveTheProducts() {
-  getCartItem.innerHTML = getSavedCartItems();
-}
-
-window.onload = () => { };
 
 async function createFetchProducts(productName) {
   const selectItems = document.querySelector('.items');
@@ -86,6 +79,12 @@ const bttnAddCart = () => {
     });
   });
 };
+/* Para adicionar o evento de excluir o item após salvar, precisei chamar o evento novamente (Dica fornecida na monitoria do Douglas) */
+function saveTheProducts() {
+  getCartItem.innerHTML = getSavedCartItems();
+}
+
+getCartItem.addEventListener('click', cartItemClickListener);
 
 window.onload = () => {
   createFetchProducts('computador')
