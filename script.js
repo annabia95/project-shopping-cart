@@ -1,4 +1,5 @@
 const getCartItem = document.querySelector('.cart__items');
+const bttnEmptyCart = document.querySelector('.empty-cart');
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -79,12 +80,19 @@ const bttnAddCart = () => {
     });
   });
 };
-/* Para adicionar o evento de excluir o item após salvar, precisei chamar o evento novamente (Dica fornecida na monitoria do Douglas) */
+/* Para adicionar o evento de excluir o item após salvar, precisei implementar o evento novamente (Dica fornecida na monitoria do Douglas) */
 function saveTheProducts() {
   getCartItem.innerHTML = getSavedCartItems();
 }
 
 getCartItem.addEventListener('click', cartItemClickListener);
+
+/* Referência de localStorage.removeItem(): https://developer.mozilla.org/pt-BR/docs/Web/API/Storage/removeItem */
+function cleanCart() {
+  getCartItem.innerHTML = '';
+  localStorage.removeItem('cartItems');
+}
+bttnEmptyCart.addEventListener('click', cleanCart);
 
 window.onload = () => {
   createFetchProducts('computador')
