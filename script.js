@@ -1,6 +1,11 @@
 const getCartItem = document.querySelector('.cart__items');
 const bttnEmptyCart = document.querySelector('.empty-cart');
 const getTotalPrice = document.querySelector('.total-price');
+const loadingItem = document.querySelector('.loading');
+
+function loadingAPI() {
+  return loadingItem.remove();
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -110,6 +115,7 @@ bttnEmptyCart.addEventListener('click', cleanCart);
 
 window.onload = () => {
   createFetchProducts('computador')
+  .then(() => loadingAPI())
   .then(() => bttnAddCart())
   .then(() => someThePrice())
   .then(() => saveTheProducts());
