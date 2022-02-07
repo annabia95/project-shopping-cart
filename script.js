@@ -1,5 +1,6 @@
 const getCartItem = document.querySelector('.cart__items');
 const bttnEmptyCart = document.querySelector('.empty-cart');
+const getTotalPrice = document.querySelector('.total-price');
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -31,8 +32,20 @@ function createProductItemElement({ sku, name, image }) {
   return item.querySelector('span.item__sku').innerText;
 } */
 
+/* Referências do parseFloat e do split: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/parseFloat . https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/split */
+function someThePrice() {
+  const itemsCart = getCartItem.childNodes;
+  let sum = 0;
+  itemsCart.forEach((price) => {
+    const value = parseFloat(price.innerText.split('$')[1]);
+    sum += value;
+  });
+  getTotalPrice.innerHTML = sum;
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
+  someThePrice();
   saveCartItems(getCartItem.innerHTML);
 }
 
@@ -68,6 +81,7 @@ async function createCartProducts(ItemID) {
     };
     const callCreateCartProduct = createCartItemElement(itemObjectCart);
     selectElementOl.appendChild(callCreateCartProduct);
+    someThePrice();
     saveCartItems(getCartItem.innerHTML);
 }
  /* Após implementar a minha API de ItemID  e criar os componentes HTML do respectivo item, crio um evento para implementar as características do produto no carrinho de compras */
@@ -97,5 +111,6 @@ bttnEmptyCart.addEventListener('click', cleanCart);
 window.onload = () => {
   createFetchProducts('computador')
   .then(() => bttnAddCart())
+  .then(() => someThePrice())
   .then(() => saveTheProducts());
 };
