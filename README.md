@@ -25,17 +25,7 @@ Após cada um dos passos, haverá um exemplo do comando a ser digitado para faze
   git clone git@github.com:annabia95/project-shopping-cart.git
 ```
 
-3. Acesse o diretório do projeto e depois utilize o comando **npm i** para instalar todas as dependências necessárias:
-```javascript
-  cd project-shopping-cart
-  npm i
-```
-
-4. Por último, rode o comando **npm start** e acesse o projeto via browser, no caminho `http://localhost:3000/project-shopping-cart`.
-
-```javascript
-  npm start
-```
+Para evitar problemas de CORS, utilize a extensão Live Server do VSCode para conseguir carregar todos os assets externos, com o servidor rodando, abra o arquivo index.html, não é necessário rodar um npm install para ver a aplicação
 
 ## Habilidades Desenvolvidas
 
